@@ -43,9 +43,7 @@ import org.ignition.blojsom.blog.BlogEntry;
 import org.ignition.blojsom.util.BlojsomConstants;
 import org.ignition.blojsom.util.BlojsomUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -56,7 +54,7 @@ import java.util.Vector;
  * Blogger API spec can be found at http://plant.blogger.com/api/index.html
  *
  * @author Mark Lussier
- * @version $Id: BlojsomBloggerAPIHandler.java,v 1.11.2.1 2003-04-08 14:24:26 intabulas Exp $
+ * @version $Id: BlojsomBloggerAPIHandler.java,v 1.11.2.2 2003-04-12 16:23:49 czarneckid Exp $
  */
 public class BlojsomBloggerAPIHandler extends AbstractBlojsomAPIHandler implements BlojsomConstants {
 
@@ -315,9 +313,9 @@ public class BlojsomBloggerAPIHandler extends AbstractBlojsomAPIHandler implemen
                 if (_entries != null && _entries.length > 0) {
                     BlogEntry _entry = _entries[0];
                     try {
-                        FileOutputStream _fos = new FileOutputStream(_entry.getSource().getAbsolutePath(), false);
-                        _fos.write(content.getBytes());
-                        _fos.close();
+                        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(_entry.getSource().getAbsolutePath(), false), UTF8));
+                        bw.write(content);
+                        bw.close();
                         result = true;
                     } catch (IOException e) {
                         throw new XmlRpcException(UNKNOWN_EXCEPTION, UNKNOWN_EXCEPTION_MSG);
@@ -375,9 +373,9 @@ public class BlojsomBloggerAPIHandler extends AbstractBlojsomAPIHandler implemen
                 String postid = blogid + "?" + PERMALINK_PARAM + "=" + filename;
 
                 try {
-                    FileOutputStream _fos = new FileOutputStream(outputfile, false);
-                    _fos.write(content.getBytes());
-                    _fos.close();
+                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputfile, false), UTF8));
+                    bw.write(content);
+                    bw.close();
                     result = postid;
                 } catch (IOException e) {
                     throw new XmlRpcException(UNKNOWN_EXCEPTION, UNKNOWN_EXCEPTION_MSG);
@@ -422,7 +420,6 @@ public class BlojsomBloggerAPIHandler extends AbstractBlojsomAPIHandler implemen
 
                 BlogCategory blogCategory = new BlogCategory(blogid, _blog.getBlogFileExtensions() + BlojsomUtils.removeInitialSlash(blogid));
                 BlogEntry[] entries = _blog.getEntriesForCategory(blogCategory, numposts);
-
 
                 if (entries != null && entries.length > 0) {
                     for (int x = 0; x < entries.length; x++) {

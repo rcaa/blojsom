@@ -58,7 +58,7 @@ import java.util.*;
  *
  * @author David Czarnecki
  * @author Mark Lussier
- * @version $Id: BlojsomServlet.java,v 1.65.2.1 2003-04-10 01:02:08 czarneckid Exp $
+ * @version $Id: BlojsomServlet.java,v 1.65.2.2 2003-04-12 16:23:33 czarneckid Exp $
  */
 public class BlojsomServlet extends HttpServlet implements BlojsomConstants {
 
@@ -295,7 +295,7 @@ public class BlojsomServlet extends HttpServlet implements BlojsomConstants {
      */
     protected void service(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         try {
-            httpServletRequest.setCharacterEncoding("UTF-8");
+            httpServletRequest.setCharacterEncoding(UTF8);
         } catch (UnsupportedEncodingException e) {
             _logger.error(e);
         }

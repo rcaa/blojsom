@@ -51,6 +51,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -63,7 +64,7 @@ import java.util.Properties;
  * This servlet uses the Jakarta XML-RPC Library (http://ws.apache.org/xmlrpc)
  *
  * @author Mark Lussier
- * @version $Id: BlojsomXMLRPCServlet.java,v 1.8 2003-04-06 18:40:42 czarneckid Exp $
+ * @version $Id: BlojsomXMLRPCServlet.java,v 1.8.2.1 2003-04-12 16:23:49 czarneckid Exp $
  */
 public class BlojsomXMLRPCServlet extends HttpServlet implements BlojsomConstants {
     private static final String BLOG_CONFIGURATION_IP = "blog-configuration";
@@ -199,11 +200,17 @@ public class BlojsomXMLRPCServlet extends HttpServlet implements BlojsomConstant
      * @throws IOException If there is an error during I/O
      */
     protected void service(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        try {
+            httpServletRequest.setCharacterEncoding(UTF8);
+        } catch (UnsupportedEncodingException e) {
+            _logger.error(e);
+        }
+
         byte[] result = _xmlrpc.execute(httpServletRequest.getInputStream());
         String content = new String(result);
         httpServletResponse.setContentType("text/xml");
         httpServletResponse.setContentLength(content.length());
-        OutputStreamWriter osw = new OutputStreamWriter(httpServletResponse.getOutputStream(), "UTF-8");
+        OutputStreamWriter osw = new OutputStreamWriter(httpServletResponse.getOutputStream(), UTF8);
         osw.write(content);
         osw.flush();
     }

@@ -47,10 +47,7 @@ import org.ignition.blojsom.util.BlojsomUtils;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +56,7 @@ import java.util.Map;
  * TrackbackPlugin
  *
  * @author David Czarnecki
- * @version $Id: TrackbackPlugin.java,v 1.15 2003-04-04 02:54:07 czarneckid Exp $
+ * @version $Id: TrackbackPlugin.java,v 1.15.2.1 2003-04-12 16:23:48 czarneckid Exp $
  */
 public class TrackbackPlugin implements BlojsomPlugin {
 
@@ -265,7 +262,7 @@ public class TrackbackPlugin implements BlojsomPlugin {
 
         File trackbackEntry = new File(trackbackFilename);
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(trackbackEntry));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(trackbackEntry), BlojsomConstants.UTF8));
             bw.write(trackback.getTitle());
             bw.newLine();
             bw.write(trackback.getExcerpt());
