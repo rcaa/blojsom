@@ -57,7 +57,7 @@ import java.util.Map;
  * Blogger API spec can be found at http://plant.blogger.com/api/index.html
  *
  * @author Mark Lussier
- * @version $Id: BloggerAPIHandler.java,v 1.12.2.1 2003-05-01 03:53:35 intabulas Exp $
+ * @version $Id: BloggerAPIHandler.java,v 1.12.2.2 2003-05-01 04:05:45 intabulas Exp $
  */
 public class BloggerAPIHandler extends AbstractBlojsomAPIHandler implements BlojsomConstants {
 
@@ -529,7 +529,6 @@ public class BloggerAPIHandler extends AbstractBlojsomAPIHandler implements Bloj
                         entrystruct.put(MEMBER_TITLE, entry.getEscapedTitle());
                         entrystruct.put(MEMBER_URL, entry.getEscapedLink());
                         entrystruct.put(MEMBER_CONTENT, entry.getTitle() + "\n" + entry.getDescription());
-                        //entrystruct.put(MEMBER_DATECREATED, entry.getISO8601Date());
                         entrystruct.put(MEMBER_DATECREATED, entry.getDate());
                         entrystruct.put(MEMBER_AUTHORNAME, _blog.getBlogOwner());
                         entrystruct.put(MEMBER_AUTHOREMAIL, _blog.getBlogOwnerEmail());
