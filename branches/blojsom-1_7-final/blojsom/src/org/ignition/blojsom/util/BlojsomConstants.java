@@ -40,7 +40,7 @@ package org.ignition.blojsom.util;
  * @author David Czarnecki
  * @author Mark Lussier
  * @author Dan Morrill
- * @version $Id: BlojsomConstants.java,v 1.50.2.1 2003-04-12 16:23:28 czarneckid Exp $
+ * @version $Id: BlojsomConstants.java,v 1.50.2.2 2003-04-17 16:59:00 intabulas Exp $
  */
 public interface BlojsomConstants {
 
@@ -79,6 +79,12 @@ public interface BlojsomConstants {
      * (example: on the request for the JSPDispatcher)
      */
     public static final String BLOJSOM_DATE_OBJECT = "BLOJSOM_DATE_OBJECT";
+
+    /**
+     * Key under which the lastmodified date of the blog will be placed
+     * (example: on the request for the JSPDispatcher)
+     */
+    public static final String BLOJSOM_LAST_MODIFIED = "BLOJSOM_LAST_MODIFIED";
 
     /**
      * Key under which the blog site will be placed
