@@ -64,7 +64,7 @@ import java.util.Properties;
  * This servlet uses the Jakarta XML-RPC Library (http://ws.apache.org/xmlrpc)
  *
  * @author Mark Lussier
- * @version $Id: BlojsomXMLRPCServlet.java,v 1.8.2.1 2003-04-12 16:23:49 czarneckid Exp $
+ * @version $Id: BlojsomXMLRPCServlet.java,v 1.8.2.2 2003-04-12 22:29:08 czarneckid Exp $
  */
 public class BlojsomXMLRPCServlet extends HttpServlet implements BlojsomConstants {
     private static final String BLOG_CONFIGURATION_IP = "blog-configuration";
@@ -207,8 +207,8 @@ public class BlojsomXMLRPCServlet extends HttpServlet implements BlojsomConstant
         }
 
         byte[] result = _xmlrpc.execute(httpServletRequest.getInputStream());
-        String content = new String(result);
-        httpServletResponse.setContentType("text/xml");
+        String content = new String(result, UTF8);
+        httpServletResponse.setContentType("text/xml;charset=UTF-8");
         httpServletResponse.setContentLength(content.length());
         OutputStreamWriter osw = new OutputStreamWriter(httpServletResponse.getOutputStream(), UTF8);
         osw.write(content);
