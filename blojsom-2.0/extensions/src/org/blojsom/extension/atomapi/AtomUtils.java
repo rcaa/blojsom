@@ -36,7 +36,6 @@ package org.blojsom.extension.atomapi;
 
 import org.blojsom.blog.Blog;
 import org.blojsom.blog.BlogEntry;
-import org.blojsom.blog.BlogUser;
 import org.blojsom.util.BlojsomUtils;
 import org.intabulas.sandler.elements.Author;
 import org.intabulas.sandler.elements.Content;
@@ -52,24 +51,25 @@ import java.util.Date;
  *
  * @author Mark Lussier
  * @since blojsom 2.0
- * @version $Id: AtomUtils.java,v 1.5 2003-09-10 21:01:20 intabulas Exp $
+ * @version $Id: AtomUtils.java,v 1.2 2003-09-08 16:24:21 intabulas Exp $
  */
 public class AtomUtils {
 
-    public static String generateNextNonce(BlogUser user) {
-        return BlojsomUtils.getISO8601Date(new Date()) + ":" + user.getId() + ":hanger1";
+    public static String generateNextNonce() {
+        //@todo create algorithm format
+        return BlojsomUtils.digestString( "Blah", "SHA");
+
     }
 
 
-    public static Entry fromBlogEntry(Blog blog, BlogUser user, BlogEntry blogentry) {
+    public static Entry fromBlogEntry(Blog blog, BlogEntry blogentry) {
         Entry result = new EntryImpl();
-        result.setTitle(blogentry.getEscapedTitle());
-        result.setSummary(blogentry.getEscapedTitle());
+        result.setTitle(blogentry.getTitle());
         result.setCreated(blogentry.getDate());
         result.setIssued(blogentry.getDate());
         result.setModified(new Date(blogentry.getLastModified()));
-        result.setId(blogentry.getEscapedLink());
-        result.setLink(blogentry.getEscapedLink());
+        result.setId(blogentry.getPermalink());
+        result.setLink(blogentry.getLink());
         Author author = new AuthorImpl();
         author.setName(blog.getBlogOwner());
         author.setEmail(blog.getBlogOwnerEmail());
@@ -77,17 +77,8 @@ public class AtomUtils {
         result.setAuthor(author);
 
         Content content = new ContentImpl();
-        content.setMimeType("text/html");
         content.setBody(blogentry.getEscapedDescription());
         result.addContent(content);
-        return result;
-
-    }
-
-    public static Entry fromBlogEntrySearch(Blog blog, BlogUser user, BlogEntry blogentry) {
-        Entry result = new EntryImpl();
-        result.setTitle(blogentry.getEscapedTitle());
-        result.setId(blog.getBlogBaseURL() + "/atomapi/" + user.getId() + "/?permalink=" + blogentry.getPermalink());
         return result;
 
     }
