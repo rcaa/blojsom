@@ -58,7 +58,7 @@ import java.util.Map;
  * CommentPlugin
  *
  * @author David Czarnecki
- * @version $Id: CommentPlugin.java,v 1.23.2.1 2003-04-12 16:23:48 czarneckid Exp $
+ * @version $Id: CommentPlugin.java,v 1.23.2.2 2003-04-18 02:08:13 czarneckid Exp $
  */
 public class CommentPlugin implements BlojsomPlugin {
 
@@ -286,6 +286,9 @@ public class CommentPlugin implements BlojsomPlugin {
                     blogComments.add(_comment);
                     entries[0].setComments(blogComments);
                 }
+
+                // For persisting the Last-Modified time
+                httpServletRequest.getSession().setAttribute(BlojsomConstants.BLOJSOM_LAST_MODIFIED, new Long(new Date().getTime()));
 
                 if (_blogEmailEnabled.booleanValue()) {
                     sendCommentEmail(title, category, permalink, author, authorEmail, authorURL, commentText, context);
