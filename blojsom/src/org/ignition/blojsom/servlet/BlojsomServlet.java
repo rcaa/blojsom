@@ -61,7 +61,7 @@ import java.util.*;
  *
  * @author David Czarnecki
  * @author Mark Lussier
- * @version $Id: BlojsomServlet.java,v 1.73 2003-04-22 02:13:04 czarneckid Exp $
+ * @version $Id: BlojsomServlet.java,v 1.73.2.1 2003-04-30 03:03:25 czarneckid Exp $
  */
 public class BlojsomServlet extends HttpServlet implements BlojsomConstants {
 
@@ -390,11 +390,13 @@ public class BlojsomServlet extends HttpServlet implements BlojsomConstants {
             pluginChain = BlojsomUtils.parseCommaList(httpServletRequest.getParameter(PLUGINS_PARAM));
         } else {
             String pluginChainMapKey = flavor + "." + BLOJSOM_PLUGIN_CHAIN;
-            if (_pluginChainMap.containsKey(pluginChainMapKey)) {
+            String[] pluginChainValue = (String[]) _pluginChainMap.get(pluginChainMapKey);
+            if (pluginChainValue != null && pluginChainValue.length > 0) {
                 pluginChain = (String[]) _pluginChainMap.get(pluginChainMapKey);
             } else {
                 pluginChain = (String[]) _pluginChainMap.get(BLOJSOM_PLUGIN_CHAIN);
             }
+
         }
 
         // Invoke the plugins in the order in which they were specified
