@@ -323,7 +323,7 @@
     <!-- =================================================================== -->
     <!-- Create a source distribution                                        -->
     <!-- =================================================================== -->
-    <target name="create-source-distribution" depends="clean">
+    <target name="create-source-distribution" depends="clean, prepare">
         <tstamp/>
         <zip zipfile="${distro.dir}/${name}-${version}-source.zip">
             <zipfileset dir="${basedir}">
