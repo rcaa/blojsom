@@ -51,7 +51,7 @@ import java.util.*;
  * BlojsomUtils
  *
  * @author David Czarnecki
- * @version $Id: BlojsomUtils.java,v 1.43 2003-03-28 19:06:52 intabulas Exp $
+ * @version $Id: BlojsomUtils.java,v 1.43.2.1 2003-04-12 16:23:27 czarneckid Exp $
  */
 public class BlojsomUtils implements BlojsomConstants {
 
@@ -230,7 +230,7 @@ public class BlojsomUtils implements BlojsomConstants {
             String name = (String) paramNames.nextElement();
             String value = request.getParameter(name);
             try {
-                buffer.append(URLEncoder.encode(name, "UTF-8")).append("=").append(URLEncoder.encode(value, "UTF-8"));
+                buffer.append(URLEncoder.encode(name, UTF8)).append("=").append(URLEncoder.encode(value, UTF8));
             } catch (UnsupportedEncodingException e) {
             }
             if (paramNames.hasMoreElements()) {
@@ -511,7 +511,7 @@ public class BlojsomUtils implements BlojsomConstants {
         }
 
         try {
-            return URLEncoder.encode(input, "UTF-8");
+            return URLEncoder.encode(input, UTF8);
         } catch (UnsupportedEncodingException e) {
             return input;
         }
@@ -529,7 +529,7 @@ public class BlojsomUtils implements BlojsomConstants {
         }
 
         try {
-            return URLDecoder.decode(input, "UTF-8");
+            return URLDecoder.decode(input, UTF8);
         } catch (UnsupportedEncodingException e) {
             return null;
         }

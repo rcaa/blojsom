@@ -48,10 +48,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Cookie;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -61,7 +58,7 @@ import java.util.Map;
  * CommentPlugin
  *
  * @author David Czarnecki
- * @version $Id: CommentPlugin.java,v 1.23 2003-03-31 03:49:38 czarneckid Exp $
+ * @version $Id: CommentPlugin.java,v 1.23.2.1 2003-04-12 16:23:48 czarneckid Exp $
  */
 public class CommentPlugin implements BlojsomPlugin {
 
@@ -399,7 +396,7 @@ public class CommentPlugin implements BlojsomPlugin {
 
             File commentEntry = new File(commentFilename);
             try {
-                BufferedWriter bw = new BufferedWriter(new FileWriter(commentEntry));
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(commentEntry), BlojsomConstants.UTF8));
                 bw.write(comment.getAuthor());
                 bw.newLine();
                 bw.write(comment.getAuthorEmail());
