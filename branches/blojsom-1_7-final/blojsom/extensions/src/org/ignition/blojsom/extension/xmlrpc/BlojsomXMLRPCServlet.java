@@ -37,6 +37,7 @@ package org.ignition.blojsom.extension.xmlrpc;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xmlrpc.XmlRpcServer;
+import org.apache.xmlrpc.XmlRpc;
 import org.ignition.blojsom.blog.Blog;
 import org.ignition.blojsom.blog.BlojsomConfigurationException;
 import org.ignition.blojsom.extension.xmlrpc.handlers.AbstractBlojsomAPIHandler;
@@ -64,7 +65,7 @@ import java.util.Properties;
  * This servlet uses the Jakarta XML-RPC Library (http://ws.apache.org/xmlrpc)
  *
  * @author Mark Lussier
- * @version $Id: BlojsomXMLRPCServlet.java,v 1.8.2.2 2003-04-12 22:29:08 czarneckid Exp $
+ * @version $Id: BlojsomXMLRPCServlet.java,v 1.8.2.3 2003-04-12 23:01:42 czarneckid Exp $
  */
 public class BlojsomXMLRPCServlet extends HttpServlet implements BlojsomConstants {
     private static final String BLOG_CONFIGURATION_IP = "blog-configuration";
@@ -187,6 +188,7 @@ public class BlojsomXMLRPCServlet extends HttpServlet implements BlojsomConstant
 
         _logger.info("Blojsom home is [" + _blog.getBlogHome() + "]");
         _xmlrpc = new XmlRpcServer();
+        XmlRpc.setEncoding(UTF8);
 
         configureAPIHandlers(servletConfig);
     }
