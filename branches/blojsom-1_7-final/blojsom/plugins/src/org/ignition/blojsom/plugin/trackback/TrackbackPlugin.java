@@ -56,7 +56,7 @@ import java.util.Map;
  * TrackbackPlugin
  *
  * @author David Czarnecki
- * @version $Id: TrackbackPlugin.java,v 1.15.2.1 2003-04-12 16:23:48 czarneckid Exp $
+ * @version $Id: TrackbackPlugin.java,v 1.15.2.2 2003-04-15 05:01:55 czarneckid Exp $
  */
 public class TrackbackPlugin implements BlojsomPlugin {
 
@@ -300,7 +300,7 @@ public class TrackbackPlugin implements BlojsomPlugin {
 
         StringBuffer _trackback = new StringBuffer();
         _trackback.append("Trackback on: ").append(_blogUrlPrefix).append(BlojsomUtils.removeInitialSlash(category));
-        _trackback.append("?permalink=").append(permalink).append("&page=comments").append("\n");
+        _trackback.append("?permalink=").append(permalink).append("&page=trackback").append("\n");
 
         _trackback.append("\n==[ Trackback ]==========================================================").append("\n\n");
 
