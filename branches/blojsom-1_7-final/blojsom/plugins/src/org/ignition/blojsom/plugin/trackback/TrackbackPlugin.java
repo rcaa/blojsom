@@ -56,7 +56,7 @@ import java.util.Map;
  * TrackbackPlugin
  *
  * @author David Czarnecki
- * @version $Id: TrackbackPlugin.java,v 1.15.2.2 2003-04-15 05:01:55 czarneckid Exp $
+ * @version $Id: TrackbackPlugin.java,v 1.15.2.3 2003-04-18 02:08:13 czarneckid Exp $
  */
 public class TrackbackPlugin implements BlojsomPlugin {
 
@@ -178,6 +178,7 @@ public class TrackbackPlugin implements BlojsomPlugin {
             if (title == null || "".equals(title)) {
                 title = url;
             }
+
             if (excerpt == null) {
                 excerpt = "";
             } else {
@@ -186,18 +187,23 @@ public class TrackbackPlugin implements BlojsomPlugin {
                     excerpt += "...";
                 }
             }
+
             if (blogName == null) {
                 blogName = "";
             }
+
             if (!category.endsWith("/")) {
                 category += "/";
             }
+
             Integer code = addTrackback(context, category, permalink, title, excerpt, url, blogName);
+
+            // For persisting the Last-Modified time
+            httpServletRequest.getSession().setAttribute(BlojsomConstants.BLOJSOM_LAST_MODIFIED, new Long(new Date().getTime()));
 
             if (_blogEmailEnabled.booleanValue()) {
                 sendTrackbackEmail(entryTitle, title, category, permalink, url, excerpt, blogName, context);
             }
-
 
             context.put(BLOJSOM_TRACKBACK_RETURN_CODE, code);
             if (code.intValue() == 0) {
