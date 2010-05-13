@@ -397,6 +397,9 @@ public class EditBlogsPlugin extends BaseAdminPlugin {
                             } else {
                                 user.setUserName(blogLoginID);
                             }
+                            if (blogToAdd.getUseEncryptedPasswords()) {
+                                blogUserPassword = BlojsomUtils.digestString(blogUserPassword);
+                            }
                             user.setUserPassword(blogUserPassword);
                             user.setUserRegistered(new Date());
                             user.setUserStatus("new");
